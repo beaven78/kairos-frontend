@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
-import {environment} from "../environments/environment";
+import {ApiService} from "./api.service";
 
 
 @Component({
@@ -15,7 +14,7 @@ export class AppComponent {
   valForm: FormGroup;
 
   constructor(private fb: FormBuilder,
-              private http: HttpClient) {
+              private api: ApiService) {
 
     // Model Driven validation
     this.valForm = fb.group({
@@ -42,11 +41,12 @@ export class AppComponent {
   }
 
   /**
-   * Dev Notes: This method could be moved to a service layer, this would allow for a mocking of implementation for
-   * unit testing and better seperation of concerns. In production environment swagger api could be used.
+   * Dev Notes: This will allow for a mocking of the implementation for
+   * unit testing and better separation of concerns. In a production environment swagger api could be used.
    */
   callBackendFizzBuzz(fizzBuzzVal: number) {
-    this.http.get(environment.backend + fizzBuzzVal).subscribe(data => {
+
+    this.api.backendFizzBuzz(fizzBuzzVal).subscribe(data => {
       this.fizzBuzz = data['response'];
     })
   }
