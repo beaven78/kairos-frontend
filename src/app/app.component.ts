@@ -30,7 +30,6 @@ export class AppComponent {
    */
   submitForm($ev, value: any) {
 
-    $ev.preventDefault();
     for (const c in this.valForm.controls) {
       this.valForm.controls[c].markAsTouched();
     }
